@@ -1,0 +1,41 @@
+<% if fields["displayName"]%>
+  <display-name ng-model="moduleCtrl.providerConfig.displayName"></display-name>
+<% end %>
+
+<% text_fields = fields.keys & ["storeId", "merchantId"] %>
+<% if text_fields.any?%>
+  <% for field in text_fields %>
+    <form-input-general name="<%=field%>"
+                    label="{{ '<%=fields[field]['title']%>' | translate }}"
+                    ng-model="moduleCtrl.providerConfig.<%=field%>"
+                    tooltip-text="{{ '<%=fields[field]['help']%>' | translate }}"
+                    type="text"
+                    required="true">
+    </form-input-general>
+  <% end %>
+<% end %>
+
+<% password_fields = fields.keys & ["passPhrase", "password"] %>
+<% if password_fields.any? %>
+  <% for field in password_fields %>
+    <password ng-model="moduleCtrl.providerConfig.<%=field%>"
+          label="{{ '<%=fields[field]['title']%>' | translate }}"
+          required
+          tooltip-text="{{ '<%=fields[field]['help']%>' | translate }}">
+    </password>
+  <% end %>
+<% end %>
+
+<% transaction_type_fields = fields.keys & ["transactionType", "transactionTypeSale"] %>
+<% if transaction_type_fields.any? %>
+  <% for field in transaction_type_fields %>
+    <transaction-type ng-model="moduleCtrl.providerConfig.<%=field%>"></transaction-type>
+  <% end %>
+<% end %>
+
+<% if fields["cardCode"]%>
+  <card-code ng-model="moduleCtrl.providerConfig.cardCode"></card-code>
+<% end %>
+<% if fields["testMode"]%>
+  <test-mode ng-model="moduleCtrl.providerConfig.testMode"></test-mode>
+<% end %>
