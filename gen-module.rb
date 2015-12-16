@@ -69,6 +69,7 @@ File.open("#{base_path}/#{module_name}-form.tpl.html", 'w') { |f| f.write(still_
 
 info = lang_data["#{module_name}help"]
 ugly_info = HtmlBeautifier.beautify(info, tab_stops: 4)
+ugly_info.gsub!(/, which are shown below/,"");
 File.open("#{base_path}/#{module_name}-info.tpl.html", 'w') { |f| f.write(ugly_info) } if gen_info
 
 

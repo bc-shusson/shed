@@ -2,7 +2,7 @@
   <display-name ng-model="moduleCtrl.providerConfig.displayName"></display-name>
 <% end %>
 
-<% text_fields = fields.keys & ["storeId", "merchantId", "userName"] %>
+<% text_fields = fields.keys & ["storeId", "merchantId", "userName", "pspId", "terminalId", "operatorId"] %>
 <% if text_fields.any?%>
   <% for field in text_fields %>
     <form-input-general name="<%=field%>"
@@ -15,11 +15,13 @@
   <% end %>
 <% end %>
 
-<% password_fields = fields.keys & ["passPhrase", "password"] %>
+<% password_fields = fields.keys & ["passPhrase", "password", "signatureIn", "signatureOut"] %>
 <% if password_fields.any? %>
   <% for field in password_fields %>
     <password ng-model="moduleCtrl.providerConfig.<%=field%>"
+          <% if fields[field]['title'] != "Password" %>
           label="{{ '<%=fields[field]['title']%>' | translate }}"
+          <% end %>
           required
           tooltip-text="{{ '<%=fields[field]['help']%>' | translate }}">
     </password>
