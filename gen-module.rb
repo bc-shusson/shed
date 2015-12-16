@@ -60,7 +60,7 @@ fields = Hash[*fields.zip(fields).flatten].hmap do |k, v|
 end
 
 base_path = "#{output_path}/#{module_name}/#{module_name}"
-tpl = ERB.new(File.read("module.tpl.erb"));
+tpl = ERB.new(File.read("module-form.tpl.erb"));
 still_ugly = HtmlBeautifier.beautify(tpl.result, tab_stops: 4)
 File.open("#{base_path}-form.tpl.html", 'w') { |f| f.write(still_ugly) } if gen_form
 
