@@ -1,8 +1,9 @@
 
 require "erb"
+require 'fileutils'
+require 'htmlbeautifier'
 require 'inifile'
 require 'optparse'
-require 'htmlbeautifier'
 
 class Hash
   def hmap(&block)
@@ -59,14 +60,16 @@ fields = Hash[*fields.zip(fields).flatten].hmap do |k, v|
   {k => {'title' => title, 'help' => help}}
 end
 
-base_path = "#{output_path}/#{module_name}/#{module_name}"
+base_path = "#{output_path}/#{module_name}"
+FileUtils.mkdir(base_path) unless File.directory?(base_path)
+
 tpl = ERB.new(File.read("module-form.tpl.erb"));
 still_ugly = HtmlBeautifier.beautify(tpl.result, tab_stops: 4)
-File.open("#{base_path}-form.tpl.html", 'w') { |f| f.write(still_ugly) } if gen_form
+File.open("#{base_path}/#{module_name}-form.tpl.html", 'w') { |f| f.write(still_ugly) } if gen_form
 
 info = lang_data["#{module_name}help"]
 ugly_info = HtmlBeautifier.beautify(info, tab_stops: 4)
-File.open("#{base_path}-info.tpl.html", 'w') { |f| f.write(ugly_info) } if gen_info
+File.open("#{base_path}/#{module_name}-info.tpl.html", 'w') { |f| f.write(ugly_info) } if gen_info
 
 
 

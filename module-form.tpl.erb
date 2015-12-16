@@ -2,7 +2,7 @@
   <display-name ng-model="moduleCtrl.providerConfig.displayName"></display-name>
 <% end %>
 
-<% text_fields = fields.keys & ["storeId", "merchantId"] %>
+<% text_fields = fields.keys & ["storeId", "merchantId", "userName"] %>
 <% if text_fields.any?%>
   <% for field in text_fields %>
     <form-input-general name="<%=field%>"
