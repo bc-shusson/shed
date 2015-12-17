@@ -69,7 +69,20 @@ File.open("#{base_path}/#{module_name}-form.tpl.html", 'w') { |f| f.write(still_
 
 info = lang_data["#{module_name}help"]
 ugly_info = HtmlBeautifier.beautify(info, tab_stops: 4)
+
+# some common issues fixed in a brutal way
 ugly_info.gsub!(/, which are shown below/,"");
+ugly_info.gsub!(/(To integrate.*into your store you need to follow a few simple steps:)/i, '<p translate>\1</p>')
+ugly_info.gsub!(/(<li>)(.+)(<\/li>)/, '<li translate>\2\3') # add translate to all li with text
+ugly_info.gsub!(/(<.*>.*)'([A-Za-z\s]*)'(.*<\/.*>)/, '\1&quot;\2&quot;\3') # html entity for '
+ugly_info.gsub!(/(<li translate>)(<a.*)(>)(.*<\/a><\/li>)/, '<li>\2 translate>\4') # move translate to link field
+ugly_info.gsub!(/([A-Za-z]+)(<\/li>)/, '\1.\2') # add '.' to end of lines
+ugly_info.gsub!(/Setup your Internet merchant/, 'Set up your Internet merchant') # fix common spelling mistake
+ugly_info.gsub!(/below/,"&REMOVEbelowREMOVE&") # mark `below` for removal
+ugly_info.gsub!(/target=_blank/,'target="_blank"') # add quotes for target tag
+ugly_info.gsub!(/(href=)(http:.*?)(\s)/,'\1"\2"\3') # add quotes for href
+
+
 File.open("#{base_path}/#{module_name}-info.tpl.html", 'w') { |f| f.write(ugly_info) } if gen_info
 
 

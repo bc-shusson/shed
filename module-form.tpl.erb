@@ -19,11 +19,10 @@
 <% if password_fields.any? %>
   <% for field in password_fields %>
     <password ng-model="moduleCtrl.providerConfig.<%=field%>"
-          <% if fields[field]['title'] != "Password" %>
-          label="{{ '<%=fields[field]['title']%>' | translate }}"
-          <% end %>
+          <% if fields[field]['title'] != "Password" %>label="{{ '<%=fields[field]['title']%>' | translate }}"<% end %>
           required
-          tooltip-text="{{ '<%=fields[field]['help']%>' | translate }}">
+          <% if fields[field]['help'] tooltip-text="{{ '<%=fields[field]['help']%>' | translate }}"<%end%>>
+
     </password>
   <% end %>
 <% end %>
