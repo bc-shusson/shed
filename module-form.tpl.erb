@@ -21,7 +21,7 @@
     <password ng-model="moduleCtrl.providerConfig.<%=field%>"
           <% if fields[field]['title'] != "Password" %>label="{{ '<%=fields[field]['title']%>' | translate }}"<% end %>
           required
-          <% if fields[field]['help'] tooltip-text="{{ '<%=fields[field]['help']%>' | translate }}"<%end%>>
+          <% if fields[field]['help'] %>tooltip-text="{{ '<%=fields[field]['help']%>' | translate }}"<% end %>>
 
     </password>
   <% end %>
