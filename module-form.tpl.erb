@@ -2,7 +2,7 @@
   <display-name ng-model="moduleCtrl.providerConfig.displayName"></display-name>
 <% end %>
 
-<% text_fields = fields.keys & ["storeId", "merchantId", "userName", "pspId", "terminalId", "operatorId"] %>
+<% text_fields = fields.keys & ["authCode", "productId", "workingKey", "account", "hostedPayPageToken", "hostedPayPageId", "accessCode", "secureHash", "sharedSecret", "accountName", "storeId", "storeNumber", "secCode", "email", "mbEmail", "merchantId", "userName", "pspId", "terminalId", "operatorId", "logoUrl", "vendorId", "vendorId", "userId", "partnerId", "login", "partner" ] %>
 <% if text_fields.any?%>
   <% for field in text_fields %>
     <form-input-general name="<%=field%>"
@@ -15,15 +15,27 @@
   <% end %>
 <% end %>
 
-<% password_fields = fields.keys & ["passPhrase", "password", "signatureIn", "signatureOut"] %>
+<% password_fields = fields.keys & ["securenetSecureKey", "accountpassword", "passPhrase", "password", "signatureIn", "signatureOut", "secretWord", "vendorPassword"] %>
 <% if password_fields.any? %>
   <% for field in password_fields %>
     <password ng-model="moduleCtrl.providerConfig.<%=field%>"
           <% if fields[field]['title'] != "Password" %>label="{{ '<%=fields[field]['title']%>' | translate }}"<% end %>
-          required
-          <% if fields[field]['help'] %>tooltip-text="{{ '<%=fields[field]['help']%>' | translate }}"<% end %>>
-
+          <% if fields[field]['help'] %>tooltip-text="{{ '<%=fields[field]['help']%>' | translate }}"<% end %>
+          required>
     </password>
+  <% end %>
+<% end %>
+
+<% dropdown_fields = fields.keys & ["languageCode", "gatewayMode"] %>
+<% if dropdown_fields.any? %>
+  <% for field in dropdown_fields %>
+    <form-select-general name="<%=field%>"
+                    label="{{ '<%=fields[field]['title']%>' | translate }}"
+                    ng-model="moduleCtrl.providerConfig.<%=field%>"
+                    tooltip-text="{{ '<%=fields[field]['help']%>' | translate }}"
+                    options="&REPLACEME&"
+                    required>
+    </form-select-general>
   <% end %>
 <% end %>
 
